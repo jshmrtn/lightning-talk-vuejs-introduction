@@ -1,0 +1,30 @@
+<section id="play-section">
+    <div id="play-section-top">
+        <div id="play-question" v-if="question && playState === 'question'">
+            <span id="scores-question-text">
+                {{ question.question }}
+            </span>
+        </div>
+    </div>
+    <div id="play-section-middle">
+        <button
+            v-if="playState === 'idle' || playState === 'over'"
+            v-on:click="getQuestion()"
+        >
+            Ask!
+        </button>
+
+        <button
+            v-if="playState === 'question'"
+            v-for="(answer, index) in question.answers"
+            :key="index"
+            v-on:click="answerQuestion(answer)">
+                {{ answer }}
+        </button>
+    </div>
+    <div id="play-section-bottom">
+        <span v-if="answerIsCorrect === true">Perfect! That was right!</span>
+        <span v-if="answerIsCorrect === false">Oh pity. That was wrong my friend. Try again!</span>
+        <span v-if="playState === 'over'">Time is up! To slow...</span>
+    </div>
+</section>
